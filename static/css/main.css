@@ -1,0 +1,40 @@
+.todo-table {
+    margin: 40px auto;
+    border-collapse: collapse;
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1{
+    text-align: center;
+}
+
+.todo-table,
+.todo-table h1,
+.todo-table th,
+.todo-table td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align:center;
+}
+
+.todo-table th {
+    background-color: #f2f2f2;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;           /* space between input and button */
+  margin-top: 20px;
+}
+
+.form-container input[type="text"] {
+  padding: 8px;
+  width: 250px;
+}
+
+.form-container input[type="submit"] {
+  padding: 8px 15px;
+  cursor: pointer;
+}
