@@ -1,12 +1,13 @@
+import os
 from flask import Flask, render_template, url_for,request,redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgresql://postgres:NVwjgIxRcaVBrSxNTrvAZqyZpPGLXoPO@interchange.proxy.rlwy.net:43358/railway')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
+ 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String(200), nullable=False)
@@ -25,8 +26,8 @@ def index():
             db.session.add(new_task)
             db.session.commit()
             return redirect('/')
-        except:
-            return 'There was an issue adding your task'
+        except Exception as e:
+            return str(e)
     else:
             tasks = Todo.query.order_by(Todo.date_created).all()
             return render_template('index.html',tasks = tasks)
@@ -55,6 +56,9 @@ def update(id):
              return 'There was an issue updating your task'
     else:
          return render_template('update.html',task = task)
+    
+with app.app_context():
+    db.create_all()
      
 if __name__ == "__main__":
     app.run(debug=True)
